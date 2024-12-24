@@ -1,0 +1,56 @@
+created:
+    - app/Http/Controllers/ProjectController.php
+    - app/Http/Controllers/ExpenseController.php
+    - app/Http/Controllers/BlogController.php
+    - app/Http/Controllers/MediaController.php
+    - app/Http/Controllers/CommentController.php
+    - database/factories/ProjectFactory.php
+    - database/factories/MediaFactory.php
+    - database/factories/CommentFactory.php
+    - database/factories/ExpenseFactory.php
+    - database/factories/BlogFactory.php
+    - database/migrations/2022_12_16_035847_create_projects_table.php
+    - database/migrations/2022_12_16_035848_create_media_table.php
+    - database/migrations/2022_12_16_035849_create_comments_table.php
+    - database/migrations/2022_12_16_035850_create_expenses_table.php
+    - database/migrations/2022_12_16_035851_create_blogs_table.php
+    - database/migrations/2022_12_16_035852_create_project_user_table.php
+    - app/Models/Project.php
+    - app/Models/Media.php
+    - app/Models/Comment.php
+    - app/Models/Expense.php
+    - app/Models/Blog.php
+    - tests/Feature/Http/Controllers/ProjectControllerTest.php
+    - tests/Feature/Http/Controllers/ExpenseControllerTest.php
+    - tests/Feature/Http/Controllers/BlogControllerTest.php
+    - tests/Feature/Http/Controllers/MediaControllerTest.php
+    - tests/Feature/Http/Controllers/CommentControllerTest.php
+    - app/Http/Requests/ProjectStoreRequest.php
+    - app/Http/Requests/ProjectUpdateRequest.php
+    - app/Http/Requests/ExpenseStoreRequest.php
+    - app/Http/Requests/ExpenseUpdateRequest.php
+    - app/Http/Requests/BlogStoreRequest.php
+    - app/Http/Requests/BlogUpdateRequest.php
+    - app/Http/Requests/MediumStoreRequest.php
+    - app/Http/Requests/MediumUpdateRequest.php
+    - app/Http/Requests/CommentStoreRequest.php
+    - app/Http/Requests/CommentUpdateRequest.php
+    - app/Http/Resources/ProjectCollection.php
+    - app/Http/Resources/ProjectResource.php
+    - app/Http/Resources/ExpenseCollection.php
+    - app/Http/Resources/ExpenseResource.php
+    - app/Http/Resources/BlogCollection.php
+    - app/Http/Resources/BlogResource.php
+    - app/Http/Resources/MediumCollection.php
+    - app/Http/Resources/MediumResource.php
+    - app/Http/Resources/CommentCollection.php
+    - app/Http/Resources/CommentResource.php
+updated:
+    - routes/api.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Project: { id: id, name: string, description: text, avatar: string, total_paid: float, total_requested: float, total_remaining: float, min_donation_fee: float, increment_by: float, bank_name: 'string,', bank_branch: string, bank_iban: string, country: string, city: string, gov: string, lat: double, lng: double, status: 'enum:active,archived', timestamps: timestamps, relationships: { morphMany: 'Media , Comment', belongsToMany: User, hasMany: Expense } }
+    Media: { id: id, morphs: 'morphs:has_media', type: 'enum:image,video' }
+    Comment: { id: id, user_id: id, content: text, morphs: 'morphs:commentable', status: 'enum:accepted,pending' }
+    Expense: { id: id, project_id: id, total: float, paid_at: timestamp, timestamps: timestamps, relationships: { morphMany: Media } }
+    Blog: { id: id, content: text, timestamps: timestamps, relationships: { morphMany: Media } }
