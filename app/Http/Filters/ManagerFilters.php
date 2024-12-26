@@ -19,6 +19,9 @@ class ManagerFilters extends QueryFilters
           $this->query->where('status', $val);
      }
 
+
+
+
      public function from($val)
      {
           $this->query->where('created_at', '>=', Carbon::parse($val)->startOfDay());

@@ -87,7 +87,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    
+
     protected function cms(): Attribute
     {
         return Attribute::make(
@@ -111,7 +111,7 @@ class User extends Authenticatable
                 set: fn ($value) => json_encode($value),
             );
    }
- 
+
    protected function  titles(): Attribute
    {
         return Attribute::make(
@@ -119,12 +119,17 @@ class User extends Authenticatable
                 set: fn ($value) => json_encode($value),
             );
    }
- 
+
    protected function  logos(): Attribute
    {
         return Attribute::make(
                 get: fn ($value) => json_decode($value, true),
                 set: fn ($value) => json_encode($value),
             );
+   }
+
+    public function projectsDonors()
+    {
+        return $this->belongsToMany(Project::class,'project_donors');
    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DonorController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ManagerController;
@@ -65,7 +66,9 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::apiResource('logs', UserActivityController::class);
     Route::apiResource('roles',RoleController::class);
     Route::apiResource('managers', ManagerController::class);
+    Route::apiResource('donors', DonorController::class);
     Route::apiResource('projects', ProjectController::class)->except('index','show');
+    Route::get('my-projects', [ProjectController::class, 'myProjects']);
     Route::get('expenses-pdf', [PDFController::class, 'outcomesPDF']);
     Route::get('incomes-pdf', [PDFController::class, 'incomesPDF']);
     Route::post('/cms/home', [CMSController::class, 'home']);

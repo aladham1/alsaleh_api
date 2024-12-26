@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cerbero\QueryFilters\FiltersRecords;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -97,9 +98,9 @@ class Project extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function managers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function managers(): BelongsToMany
     {
         return $this->belongsToMany(User::class,'user_roles')->withPivot('role_id');
     }
@@ -122,5 +123,10 @@ class Project extends Model
     public function incomes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Income::class);
+    }
+
+    public function donors(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'project_donors');
     }
 }

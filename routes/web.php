@@ -13,7 +13,7 @@ use App\Http\Controllers\PDFController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('https://alsalehfoundation.com');
-});
+//Route::get('/', function () {
+//    return redirect('https://alsalehfoundation.com');
+//});
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
