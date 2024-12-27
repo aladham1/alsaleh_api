@@ -15,7 +15,6 @@ use App\Models\UserRole;
 use App\Models\UserActivity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 
 class ProjectController extends Controller
@@ -27,9 +26,7 @@ class ProjectController extends Controller
     public function index(ProjectFilters $projectFilters)
     {
         if (\request()->inHome){
-            $projects = Project::with('media')->filterBy($projectFilters)->limit(3)
-                ->select('id', 'title', DB::raw("SUBSTRING_INDEX(description, ' ', 20) as summary"))
-                ->get();
+            $projects = Project::with('media')->filterBy($projectFilters)->limit(3)->get();
             return ProjectBoxResource::collection($projects);
 
         }
