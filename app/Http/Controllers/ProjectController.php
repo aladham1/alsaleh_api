@@ -26,7 +26,9 @@ class ProjectController extends Controller
     public function index(ProjectFilters $projectFilters)
     {
         if (\request()->inHome){
-            $projects = Project::with('media')->filterBy($projectFilters)->limit(3)->get();
+            $projects = Project::with('media')->filterBy($projectFilters)->limit(3)
+                ->select('id', 'title', DB::raw("SUBSTRING_INDEX(description, ' ', 20) as summary"))
+                ->get();
             return ProjectBoxResource::collection($projects);
 
         }

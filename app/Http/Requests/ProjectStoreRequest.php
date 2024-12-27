@@ -26,6 +26,7 @@ class ProjectStoreRequest extends FormRequest
         return [
             'name'              => ['required', 'string'],
             'description'       => ['required', 'string'],
+            'summary'       => ['nullable', 'string'],
             'created_at'        => ['required', 'string'],
             'avatar'            => ['nullable'],
             'total_paid'        => [],
