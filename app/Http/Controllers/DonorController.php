@@ -56,7 +56,7 @@ class DonorController extends Controller
                [
                     'type'     => 'visitor',
                     'avatar'   => $avatar,
-                    'password' => Crypt::encryptString($request->password)
+                    'password' => $request->password
                ]
           );
           $manager = User::create($data);
@@ -65,7 +65,7 @@ class DonorController extends Controller
              $projectsIds = array_filter($projectsIds, 'is_numeric');
              $manager->projectsDonors()->sync($projectsIds);
          }
-          return new ManagerResource($manager);
+          return new DonorsResource($manager);
      }
 
      /**

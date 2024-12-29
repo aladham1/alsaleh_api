@@ -21,6 +21,7 @@ class DonorsResource extends JsonResource
             'status'         => $this->status,
             'email'          => $this->email,
             'phone'          => $this->phone,
+            'password'       => $this->password,
             'whatsapp'       => $this->whatsapp,
             'created_at'     => $this->created_at->format('Y-m-d'),
             'projects' =>ProjectDonorResource::collection($this->whenLoaded('projectsDonors'))
