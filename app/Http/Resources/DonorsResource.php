@@ -20,6 +20,7 @@ class DonorsResource extends JsonResource
             'avatar'         => asset('/storage/' . $this->avatar),
             'status'         => $this->status,
             'email'          => $this->email,
+            'username'          => $this->username,
             'phone'          => $this->phone,
             'password'       => $this->password,
             'whatsapp'       => $this->whatsapp,

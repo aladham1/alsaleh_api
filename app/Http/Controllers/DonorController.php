@@ -27,7 +27,7 @@ class DonorController extends Controller
      {
           $donors = User::withCount('projects')->whereType('visitor')->filterBy($managerFilters)->paginate();
 
-          return ManagerResource::collection($donors);
+          return DonorsResource::collection($donors);
      }
 
 
@@ -88,7 +88,7 @@ class DonorController extends Controller
           if (request()->password){
                if (auth()->user()->type == 'admin'){
                     $manager->update([
-                         'password' => Crypt::encryptString(request()->password),
+                         'password' => request()->password,
                          ]);
                }else{
                     return response()->json(['message' => 'You Are Not Allowed To Change Your Password'],404);

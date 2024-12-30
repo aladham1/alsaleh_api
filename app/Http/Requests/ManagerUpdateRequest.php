@@ -27,9 +27,9 @@ class ManagerUpdateRequest extends FormRequest
           return [
                'name'         => ['required', 'string'],
                'email'        => ['email', Rule::unique('users')->whereNot('email', $this->input('email'))],
+               'username'        => ['string', Rule::unique('users')->whereNot('username', $this->input('username'))],
                'phone'        => ['nullable'],
                'avatar'       => ['nullable'],
-               'phone'        => ['nullable'],
                'whatsapp'     => ['nullable'],
                'status'       => [],
 
