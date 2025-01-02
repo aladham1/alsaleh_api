@@ -102,14 +102,15 @@ class DonorController extends Controller
           return new DonorsResource($manager);
      }
 
-    public function destroy(User $manager)
+    public function destroy($id)
     {
+        $manager = User::where('id', $id)->first();
         $use_type = auth()->user()->type;
-        if ($use_type != 'admin'){
-            return new JsonResponse([
-                "message" => "You Are Not Allowed"
-            ], 404);
-        }
+//        if ($use_type != 'admin'){
+//            return new JsonResponse([
+//                "message" => "You Are Not Allowed"
+//            ], 404);
+//        }
         $manager->delete();
         return response()->noContent();
     }
