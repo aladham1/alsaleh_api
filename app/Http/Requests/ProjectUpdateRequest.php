@@ -47,7 +47,7 @@ class ProjectUpdateRequest extends FormRequest
             'financial_manager' => ['sometimes'],
             'media_manager'     => ['sometimes'],
             'is_public' 	    => ['required'],
-            'whatsapp' 		    => ['required'],
+//            'whatsapp' 		    => ['required'],
 	        'in_home'		    => ['somtimes'],
         ];
     }

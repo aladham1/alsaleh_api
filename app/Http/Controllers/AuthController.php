@@ -22,22 +22,22 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'username' => 'required|unique:users,username',
             'password' => 'required|confirmed',
             'phone' => 'required'
         ]);
 
-        $data['password'] = Crypt::encryptString($data['password']);
+//        $data['password'] = Crypt::encryptString($data['password']);
 
         $data['type'] = 'visitor';
 
         $user = User::create($data);
 
-        $token = $user->createToken('food')->plainTextToken;
+//        $token = $user->createToken('food')->plainTextToken;
 
         return response()->json([
             'user' => $user,
-            'access_token' => $token
+//            'access_token' => $token
         ]);
     }
 
@@ -49,10 +49,11 @@ class AuthController extends Controller
 //            'username' => 'required',
             'password' => 'required'
         ]);
-        if ($request->input('email')){
+        if ($request->input('email')) {
             $user = User::whereEmail($request->input('email'))->first();
-        }elseif ($request->input('username')){
-            $user = User::where('username', $request->input('username'))->first();
+        } elseif ($request->input('username')) {
+            $user = User::where('username', $request->input('username'))
+                ->whereApproved(1)->first();
         }
 
         if (!$user) {

@@ -32,7 +32,7 @@ class ManagerUpdateRequest extends FormRequest
                'avatar'       => ['nullable'],
                'whatsapp'     => ['nullable'],
                'status'       => [],
-
+               'approved'       => [],
           ];
      }
 }

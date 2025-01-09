@@ -29,6 +29,12 @@ class DonorController extends Controller
 
           return DonorsResource::collection($donors);
      }
+     public function donorsRequests(ManagerFilters $managerFilters)
+     {
+          $donors = User::whereType('visitor')->whereApproved(0)->filterBy($managerFilters)->paginate();
+
+          return DonorsResource::collection($donors);
+     }
 
 
      /**

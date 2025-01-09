@@ -33,7 +33,8 @@ class User extends Authenticatable
         'about_us',
         'links',
         'titles',
-        'logos'
+        'logos',
+        'approved'
     ];
 
     /**

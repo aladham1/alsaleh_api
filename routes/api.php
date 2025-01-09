@@ -69,6 +69,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::apiResource('donors', DonorController::class);
     Route::apiResource('projects', ProjectController::class)->except('index','show');
     Route::get('my-projects', [ProjectController::class, 'myProjects']);
+    Route::get('donors-requests', [DonorController::class, 'donorsRequests']);
     Route::get('expenses-pdf', [PDFController::class, 'outcomesPDF']);
     Route::get('incomes-pdf', [PDFController::class, 'incomesPDF']);
     Route::post('/cms/home', [CMSController::class, 'home']);
