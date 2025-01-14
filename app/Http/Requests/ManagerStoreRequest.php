@@ -26,7 +26,7 @@ class ManagerStoreRequest extends FormRequest
           return [
                'name'         => ['required', 'string'],
                'password'     => ['required', 'string'],
-               'email'        => ['email', 'nullable', 'unique:users'],
+//               'email'        => ['email', 'nullable', 'unique:users'],
                'username'        => ['string', 'nullable', 'unique:users'],
                'phone'        => ['nullable'],
                'avatar'       => ['nullable'],

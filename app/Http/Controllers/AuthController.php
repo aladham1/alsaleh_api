@@ -30,6 +30,8 @@ class AuthController extends Controller
 //        $data['password'] = Crypt::encryptString($data['password']);
 
         $data['type'] = 'visitor';
+        $data['phone'] = $request->country . $request->phone;
+        $data['whatsapp'] = $data['phone'];
 
         $user = User::create($data);
 
@@ -50,7 +52,8 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         if ($request->input('email')) {
-            $user = User::whereEmail($request->input('email'))->first();
+            $user = User::whereEmail($request->input('email'))
+               ->orWhere('username', $request->input('email'))->first();
         } elseif ($request->input('username')) {
             $user = User::where('username', $request->input('username'))
                 ->whereApproved(1)->first();
