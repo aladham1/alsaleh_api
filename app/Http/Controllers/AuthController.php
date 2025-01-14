@@ -30,7 +30,7 @@ class AuthController extends Controller
 //        $data['password'] = Crypt::encryptString($data['password']);
 
         $data['type'] = 'visitor';
-        $data['phone'] = $request->country . $request->phone;
+        $data['phone'] = str_replace('+', '', $request->country . $request->phone);
         $data['whatsapp'] = $data['phone'];
 
         $user = User::create($data);
