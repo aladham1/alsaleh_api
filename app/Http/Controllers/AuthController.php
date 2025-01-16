@@ -53,7 +53,7 @@ class AuthController extends Controller
         ]);
         if ($request->input('email')) {
             $user = User::whereEmail($request->input('email'))
-               ->orWhere('username', $request->input('email'))->first();
+                ->orWhere('username', $request->input('email'))->first();
         } elseif ($request->input('username')) {
             $user = User::where('username', $request->input('username'))
                 ->whereApproved(1)->first();
@@ -72,15 +72,11 @@ class AuthController extends Controller
                     'access_token' => $token
                 ]);
             } else {
-
                 return response()->json(['msg' => 'Wrong Password'], 401);
             }
         }
-        if (Crypt::decryptString($user->password) == $request->password) {
-
+        if ($user->password == $request->password) {
             $token = $user->createToken('food')->plainTextToken;
-
-
             return response()->json([
                 'user' => $user,
                 'access_token' => $token

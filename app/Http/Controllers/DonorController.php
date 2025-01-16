@@ -118,4 +118,16 @@ class DonorController extends Controller
         $manager->delete();
         return response()->noContent();
     }
+
+    public function approvedD(Request $request, $id)
+    {
+        $donor = User::findOrFail($id); // Find the donor
+        $donor->approved = !$donor->approved; // Toggle the 'approved' field
+        $donor->save(); // Save changes
+
+        return response()->json([
+            'message' => 'Donor approval status updated successfully.',
+            'donor' => $donor,
+        ]);
+    }
 }

@@ -77,6 +77,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/cms/links', [CMSController::class, 'links']);
     Route::post('/cms/titles', [CMSController::class, 'titles']);
     Route::post('/cms/logos', [CMSController::class, 'logos']);
+    Route::post('/approved-users/{id}/approve', [DonorController::class, 'approvedD']);
+
 });
 
 

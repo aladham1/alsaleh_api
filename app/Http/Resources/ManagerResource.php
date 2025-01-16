@@ -39,7 +39,7 @@ class ManagerResource extends JsonResource
             'avatar' => asset('/storage/' . $this->avatar),
             'status' => $this->status,
             'username' => $this->username,
-            'password' => $this->when($login, Crypt::decryptString($this->password)),
+            'password' => $this->password,
             'phone' => $this->phone,
             'whatsapp' => $this->whatsapp,
             'created_at' => $this->created_at->format('Y-m-d'),

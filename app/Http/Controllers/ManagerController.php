@@ -55,7 +55,7 @@ class ManagerController extends Controller
                [
                     'type'     => 'manager',
                     'avatar'   => $avatar,
-                    'password' => Crypt::encryptString($request->password)
+                    'password' => request()->password
                ]
           );
           $manager = User::create($data);
@@ -81,7 +81,7 @@ class ManagerController extends Controller
           if (request()->password){
                if (auth()->user()->type == 'admin'){
                     $manager->update([
-                         'password' => Crypt::encryptString(request()->password),
+                         'password' => request()->password,
                          ]);
                }else{
                     return response()->json(['message' => 'You Are Not Allowed To Change Your Password'],404);
