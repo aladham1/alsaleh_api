@@ -24,7 +24,8 @@ class ManagerController extends Controller
       */
      public function index(ManagerFilters $managerFilters)
      {
-          $projects = User::withCount('projects')->whereType('manager')->filterBy($managerFilters)->paginate();
+          $projects = User::withCount('projects')->whereType('manager')->filterBy($managerFilters)
+              ->orderBy('id','desc')->paginate();
 
           return ManagerResource::collection($projects);
      }
