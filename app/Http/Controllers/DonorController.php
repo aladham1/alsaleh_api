@@ -25,7 +25,8 @@ class DonorController extends Controller
      */
     public function index(ManagerFilters $managerFilters)
     {
-        $donors = User::withCount('projects')->whereType('visitor')->filterBy($managerFilters)->paginate();
+        $donors = User::withCount('projects')->whereType('visitor')->filterBy($managerFilters)
+            ->orderBy('id','desc')->paginate();
 
         return DonorsResource::collection($donors);
     }
