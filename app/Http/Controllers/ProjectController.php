@@ -26,13 +26,13 @@ class ProjectController extends Controller
     public function index(ProjectFilters $projectFilters)
     {
         if (\request()->inHome){
-            $projects = Project::with('media')->filterBy($projectFilters)->limit(3)->get();
+            $projects = Project::with('media')->filterBy($projectFilters)->get();
             return ProjectBoxResource::collection($projects);
 
         }
         $projects = Project::with(['managers' => function ($q) {
             $q->with('roles');
-        }, 'media'])->filterBy($projectFilters);
+        }, 'media','category'])->filterBy($projectFilters);
         $user = auth()->user();
 
         if ($user && $user->type == 'manager') {

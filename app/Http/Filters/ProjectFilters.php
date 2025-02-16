@@ -22,6 +22,11 @@ class ProjectFilters extends QueryFilters
           $this->query->where('status', $val);
      }
 
+    public function categoryId($val)
+    {
+        $this->query->where('category_id', $val);
+    }
+
 
      public function from($val)
      {

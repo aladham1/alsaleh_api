@@ -25,8 +25,14 @@ class DonorController extends Controller
      */
     public function index(ManagerFilters $managerFilters)
     {
-        $donors = User::withCount('projects')->whereType('visitor')->filterBy($managerFilters)
-            ->orderBy('id','desc')->paginate();
+        if (\request()->per_page > 0){
+            $donors = User::withCount('projects')->whereType('visitor')->filterBy($managerFilters)
+                ->orderBy('id','desc')->paginate(\request()->per_page);
+        }else{
+            $donors = User::withCount('projects')->whereType('visitor')->filterBy($managerFilters)
+                ->orderBy('id','desc')->get();
+        }
+
 
         return DonorsResource::collection($donors);
     }
@@ -34,7 +40,6 @@ class DonorController extends Controller
     public function donorsRequests(ManagerFilters $managerFilters)
     {
         $donors = User::whereType('visitor')->whereApproved(0)->filterBy($managerFilters)->paginate();
-
         return DonorsResource::collection($donors);
     }
 

@@ -39,9 +39,12 @@ class ProjectResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'category_id' => $this->category_id,
+            'category' => $this->category,
             'slug' => $this->slug,
             'is_public' => $this->is_public,
             'whatsapp' => $this->whatsapp,
+            'category_name' => $this->category_name,
             'description' => $this->description,
             'avatar' => asset('/storage/' . $this->avatar),
             'total_paid' => $this->total_paid,

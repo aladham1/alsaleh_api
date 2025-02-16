@@ -27,6 +27,7 @@ class ProjectUpdateRequest extends FormRequest
             'name' 		        => ['required', 'string'],
             'description' 	    => ['required', 'string'],
             'created_at' 	    => ['required', 'string'],
+            'category_id' 		    => ['required'],
             'avatar' 		    => ['nullable'],
             'total_paid' 	    => [],
             'total_requested' 	=> [],
