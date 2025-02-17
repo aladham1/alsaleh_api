@@ -26,7 +26,12 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::paginate();
+        if (\request()->per_page > 0) {
+            $categories = Category::paginate(request()->per_page);
+        }else{
+            $categories = Category::all();
+
+        }
 
         return CategoryResource::collection($categories);
     }

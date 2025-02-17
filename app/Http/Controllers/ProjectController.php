@@ -40,11 +40,10 @@ class ProjectController extends Controller
                 $query->where('user_roles.user_id', auth()->id());
             });
         }
-
-        if (\request()->no_pg){
-            $projects = $projects->get();
-        }else{
+        if (\request()->per_page > 0){
             $projects = $projects->paginate(request('per_page', 10));
+        }else{
+            $projects = $projects->get();
         }
 
         return ProjectResource::collection($projects);

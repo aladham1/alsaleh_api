@@ -21,8 +21,12 @@ class ExpenseController extends Controller
      */
     public function index(ExpenseFilters $expenseFilters)
     {
+        if (\request()->per_page > 0) {
+            $expenses = Expense::with('media')->filterBy($expenseFilters)->paginate(request()->per_page);
+        }else{
+            $expenses = Expense::with('media')->filterBy($expenseFilters)->get();
 
-        $expenses = Expense::with('media')->filterBy($expenseFilters)->paginate();
+        }
         return  ExpenseResource::collection($expenses);
     }
 

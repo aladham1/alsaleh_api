@@ -22,7 +22,11 @@ class IncomeController extends Controller
      */
     public function index(IncomeFilters $incomeFilters)
     {
-        $incomes = Income::with('media')->filterBy($incomeFilters)->paginate();
+        if (\request()->per_page > 0) {
+            $incomes = Income::with('media')->filterBy($incomeFilters)->paginate(\request()->per_page);
+        }else{
+            $incomes = Income::with('media')->filterBy($incomeFilters)->get();
+        }
         return  IncomeResource::collection($incomes);
     }
 
@@ -45,7 +49,7 @@ class IncomeController extends Controller
                 }
             }
         }
-    
+
         $income = Income::create($request->validated());
         $images = collect($request->images)->map(function ($image) {
             return ['path' => $image, 'type' => 'image'];
@@ -143,7 +147,7 @@ class IncomeController extends Controller
                 }else{
                     return response()->json(['message' => 'Sorry But You Are Not Included In This Project'],400);
                 }
-            }   
+            }
             UserActivity::create([
                 'name'      => auth()->user()->name,
                 'activity'  => 'Delete Incomes From Project [ '.$income->project_id.' ]',
