@@ -40,7 +40,7 @@ class ProjectController extends Controller
                 $query->where('user_roles.user_id', auth()->id());
             });
         }
-        if (\request()->per_page > 0){
+        if (!\request()->inHome){
             $projects = $projects->paginate(request('per_page', 10));
         }else{
             $projects = $projects->get();
