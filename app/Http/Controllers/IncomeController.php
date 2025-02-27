@@ -24,10 +24,10 @@ class IncomeController extends Controller
     {
         if (\request()->per_page > 0) {
             $incomes = Income::with('media')->filterBy($incomeFilters)->paginate(\request()->per_page);
-        }else{
+        } else {
             $incomes = Income::with('media')->filterBy($incomeFilters)->get();
         }
-        return  IncomeResource::collection($incomes);
+        return IncomeResource::collection($incomes);
     }
 
     /**
@@ -36,16 +36,16 @@ class IncomeController extends Controller
      */
     public function store(StoreIncomeRequest $request)
     {
-        if (in_array(auth()->user()->type,['admin','manager'])){
-            if(auth()->user()->type == 'manager'){
-                $user_role      = UserRole::where(['project_id' => $request->project_id , 'user_id' => auth()->user()->id])->first();
-                if($user_role){
-                    $role           = Role::where('id', $user_role->role_id)->first();
-                    if ($role->name == 'finacial_manager'){
-                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'],400);
+        if (in_array(auth()->user()->type, ['admin', 'manager'])) {
+            if (auth()->user()->type == 'manager') {
+                $user_role = UserRole::where(['project_id' => $request->project_id, 'user_id' => auth()->user()->id])->first();
+                if ($user_role) {
+                    $role = Role::where('id', $user_role->role_id)->first();
+                    if ($role->name == 'finacial_manager') {
+                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'], 400);
                     }
-                }else{
-                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'],400);
+                } else {
+                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'], 400);
                 }
             }
         }
@@ -56,9 +56,9 @@ class IncomeController extends Controller
         });
         $income->media()->createMany($images);
         UserActivity::create([
-            'name'      => auth()->user()->name,
-            'activity'  => 'Add Incomes From Project [ '.$income->project_id.' ]',
-            'url'       => '/projects/'.$income->project_id
+            'name' => auth()->user()->name,
+            'activity' => 'Add Incomes From Project [ ' . $income->project_id . ' ]',
+            'url' => '/projects/' . $income->project_id
         ]);
         return new IncomeResource($income);
     }
@@ -71,16 +71,16 @@ class IncomeController extends Controller
     public function show(Request $request, Income $income)
     {
 
-        if (in_array(auth()->user()->type,['admin','manager'])){
-            if(auth()->user()->type == 'manager'){
-                $user_role      = UserRole::where(['project_id' => $income->project_id , 'user_id' => $income->user_id])->first();
-                if($user_role){
-                    $role           = Role::where('id', $user_role->role_id)->first();
-                    if ($role->name == 'finacial_manager'){
-                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'],400);
+        if (in_array(auth()->user()->type, ['admin', 'manager'])) {
+            if (auth()->user()->type == 'manager') {
+                $user_role = UserRole::where(['project_id' => $income->project_id, 'user_id' => $income->user_id])->first();
+                if ($user_role) {
+                    $role = Role::where('id', $user_role->role_id)->first();
+                    if ($role->name == 'finacial_manager') {
+                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'], 400);
                     }
-                }else{
-                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'],400);
+                } else {
+                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'], 400);
                 }
             }
         }
@@ -97,16 +97,16 @@ class IncomeController extends Controller
     public function update(UpdateIncomeRequest $request, Income $income)
     {
 
-        if (in_array(auth()->user()->type,['admin','manager'])){
-            if(auth()->user()->type == 'manager'){
-                $user_role      = UserRole::where(['project_id' => $income->project_id , 'user_id' => $income->user_id])->first();
-                if($user_role){
-                    $role           = Role::where('id', $user_role->role_id)->first();
-                    if ($role->name == 'finacial_manager'){
-                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'],400);
+        if (in_array(auth()->user()->type, ['admin', 'manager'])) {
+            if (auth()->user()->type == 'manager') {
+                $user_role = UserRole::where(['project_id' => $income->project_id, 'user_id' => $income->user_id])->first();
+                if ($user_role) {
+                    $role = Role::where('id', $user_role->role_id)->first();
+                    if ($role->name == 'finacial_manager') {
+                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'], 400);
                     }
-                }else{
-                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'],400);
+                } else {
+                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'], 400);
                 }
             }
         }
@@ -121,9 +121,9 @@ class IncomeController extends Controller
 
         $income->media()->createMany($images);
         UserActivity::create([
-            'name'      => auth()->user()->name,
-            'activity'  => 'Update Incomes From Project [ '.$income->project_id.' ]',
-            'url'       => '/projects/'.$income->project_id
+            'name' => auth()->user()->name,
+            'activity' => 'Update Incomes From Project [ ' . $income->project_id . ' ]',
+            'url' => '/projects/' . $income->project_id
         ]);
         return new IncomeResource($income);
     }
@@ -136,27 +136,30 @@ class IncomeController extends Controller
     public function destroy(Request $request, Income $income)
     {
 
-        if (in_array(auth()->user()->type,['admin','manager'])){
-            if(auth()->user()->type == 'manager'){
-                $user_role      = UserRole::where(['project_id' => $income->project_id , 'user_id' => $income->user_id])->first();
-                if($user_role){
-                    $role           = Role::where('id', $user_role->role_id)->first();
-                    if ($role->name == 'finacial_manager'){
-                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'],400);
+        if (in_array(auth()->user()->type, ['admin', 'manager'])) {
+            if (auth()->user()->type == 'manager') {
+//                $user_role = UserRole::where(['project_id' => $income->project_id,
+//                    'user_id' => $income->user_id])->first();
+                $user_role = UserRole::where(['project_id' => $income->project_id,
+                    'user_id' => auth()->id()])->first();
+                if ($user_role) {
+                    $role = Role::where('id', $user_role->role_id)->first();
+                    if ($role->name == 'finacial_manager') {
+                        return response()->json(['message' => 'Sorry But You Are Not Allowed To Create News'], 400);
                     }
-                }else{
-                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'],400);
+                } else {
+                    return response()->json(['message' => 'Sorry But You Are Not Included In This Project'], 400);
                 }
             }
             UserActivity::create([
-                'name'      => auth()->user()->name,
-                'activity'  => 'Delete Incomes From Project [ '.$income->project_id.' ]',
-                'url'       => '/projects/'.$income->project_id
+                'name' => auth()->user()->name,
+                'activity' => 'Delete Incomes From Project [ ' . $income->project_id . ' ]',
+                'url' => '/projects/' . $income->project_id
             ]);
             $income->delete();
             return response()->noContent();
-        }else{
-                return response()->json(['message' => 'Not Allowed'],404);
+        } else {
+            return response()->json(['message' => 'Not Allowed'], 404);
         }
     }
 }
